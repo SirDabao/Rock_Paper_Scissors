@@ -13,6 +13,8 @@ function getComputerChoice() {
 function playRound(playerSelection,computerSelection)
 {
     let playerSelectionComparable=playerSelection.substr(0,1).toUpperCase() + playerSelection.substr(1).toLowerCase();
+    if(playerSelectionComparable!=="Rock" && playerSelectionComparable!=="Paper" && playerSelectionComparable!=="Scissors")
+    return "Error: Invalid input!";
     if(computerSelection===playerSelectionComparable)
     return `Both chose ${computerSelection}, it's a tie!`;
     else if(playerSelectionComparable==="Paper" && computerSelection==="Scissors")
