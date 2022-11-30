@@ -1,4 +1,17 @@
-game();
+let buttons=document.querySelectorAll("button");
+let pcChoice=document.querySelector(".computer-choice");
+let round=document.querySelector(".round-res");
+let res=document.querySelector(".results");
+res.style.cssText="font-size:25px; font-weight:bold;";
+let winner_div=document.querySelector(".winner");
+winner_div.style.cssText="font-size:30px; font-weight:bold;";
+let playerScore=0;
+let computerScore=0;
+res.innerText=`Your score: ${playerScore}\nComputer score: ${computerScore}`;
+buttons.forEach((btn)=>{btn.addEventListener("click",()=>
+{game(btn);}
+)});
+
 
 
 function getComputerChoice() {
@@ -13,8 +26,6 @@ function getComputerChoice() {
 function playRound(playerSelection,computerSelection)
 {
     let playerSelectionComparable=playerSelection.substr(0,1).toUpperCase() + playerSelection.substr(1).toLowerCase();
-    if(playerSelectionComparable!=="Rock" && playerSelectionComparable!=="Paper" && playerSelectionComparable!=="Scissors")
-    return "Error: Invalid input!";
     if(computerSelection===playerSelectionComparable)
     return `Both chose ${computerSelection}, it's a tie!`;
     else if(playerSelectionComparable==="Paper" && computerSelection==="Scissors")
@@ -29,26 +40,23 @@ function playRound(playerSelection,computerSelection)
     }
 }
 
-function game() {
-    let playerScore=0;
-    let computerScore=0;
-    for (let i=0 ; i<5 ; i++)
+function game(btn) {
+    let computerSelection=getComputerChoice();
+    pcChoice.innerText=`Computer chose ${computerSelection}`;
+    round.innerText=playRound(btn.innerText,computerSelection);
+    if(round.innerText.includes("Win"))
+    playerScore++;
+    if(round.innerText.includes("Lose"))
+    computerScore++;
+    res.innerText=`Your score: ${playerScore}\nComputer score: ${computerScore}`;
+    if(playerScore===5)
     {
-        let playerSelection=prompt("Enter your Rock, Paper, Scissors choice");
-        let computerSelection=getComputerChoice();
-        console.log(`Computer chose ${computerSelection}`);
-        let res=playRound(playerSelection,computerSelection);
-        console.log(res);
-        if(res.includes("Win"))
-        playerScore++;
-        if(res.includes("Lose"))
-        computerScore++;
+    winner_div.style.color="green";
+    winner_div.innerText="You Won the game!";
     }
-    console.log(`Your final score: ${playerScore}\nFinal computer score: ${computerScore}`);
-    if(playerScore>computerScore)
-    console.log("You Won the game!")
-    else if(playerScore==computerScore)
-    console.log("It's a tie!");
-    else
-    console.log("You Lost the game");
+    if(computerScore===5)
+    {
+        winner_div.style.color="red"; 
+        winner_div.innerText="You Lost the game";
+    }
 }
