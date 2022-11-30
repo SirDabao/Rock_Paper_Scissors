@@ -41,6 +41,8 @@ function playRound(playerSelection,computerSelection)
 }
 
 function game(btn) {
+    if(computerScore<5 && playerScore<5)
+    {
     let computerSelection=getComputerChoice();
     pcChoice.innerText=`Computer chose ${computerSelection}`;
     round.innerText=playRound(btn.innerText,computerSelection);
@@ -59,4 +61,9 @@ function game(btn) {
         winner_div.style.color="red"; 
         winner_div.innerText="You Lost the game";
     }
+}
+else{
+    pcChoice.innerText="";
+    round.innerText="Game concluded, click disregarded";
+}
 }
